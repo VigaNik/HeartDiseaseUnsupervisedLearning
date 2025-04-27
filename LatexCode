@@ -2,21 +2,22 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{float}
-\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage[a4paper, margin=2cm]{geometry}
 \usepackage{hyperref}
 \usepackage{newtxtext,newtxmath}
+\usepackage[square,comma,numbers]{natbib} 
 \graphicspath{ {images/} }
 
 \title{Unsupervised Learning - Final Project\\
 {\large Heart Disease Risk Factors Detection using Unsupervised Learning Methods}}
 
-\author{\small Nikita Nedostoup (ID: 00000000), Vladimir Kantorichy (ID: 000000000)}
+\author{\small Nikita Nedostoup (ID: 336495593), Vladimir Kantorichy (ID: 345027767)}
 \date{April 2025}
 
 \begin{document}
 \maketitle
 \begin{abstract}
-	In our project, we aimed to investigate the impact of various human conditions on the risk of Heart Diseases. We selected a medical dataset that includes data from adults related to their health status, with different characteristics for each patient. We apply unsupervised learning methods, such as clustering, to detect correlations between features, reduce dimensions for optimization, and utilize algorithms for data anomaly detection and statistical tests. The code is available on GitHub: \href{https://github.com/VigaNik/HeartDiseaseUnsupervisedLearning.git}{GitHub}
+	In our project, we aimed to investigate the impact of various human conditions on the risk of cardiovascular diseases. We selected a medical dataset that includes data from adults related to their health status, with different characteristics for each patient. We apply unsupervised learning methods, such as clustering, to detect correlations between features, reduce dimensions for optimization, and use algorithms for anomaly detection and statistical testing. The code is available on GitHub: \href{https://github.com/VigaNik/HeartDiseaseUnsupervisedLearning.git}{GitHub}
 \end{abstract}
 \section{Introduction}
 \hspace*{1em}
@@ -26,7 +27,7 @@
 \section{Methods}
 \subsection{Dataset Description}
 \hspace*{1em}
-	We took the dataset from kaggle.com, but the original data comes from the CDC and is part of the Behavioral Risk Factor Surveillance System. BRFSS, located in the USA, conducts interviews with more than 400,000 U.S. adults yearly. The dataset comprises data from over 319,797 adults, with 18 categorical attributes per participant. These attributes include various domains: 
+	We took the dataset from kaggle.com\citep{Kaggle2020}, but the original data comes from the CDC and is part of the Behavioral Risk Factor Surveillance System. BRFSS, located in the USA, conducts interviews with more than 400,000 U.S. adults yearly. The dataset comprises data from over 319,797 adults, with 18 categorical attributes per participant. These attributes include various domains: 
 \begin{itemize}
     \item Medical conditions (Asthma, diabetes, kidney disease)
 	\item Physical conditions (BMI, physical, health)
@@ -43,14 +44,14 @@
     \item Normalized all numerical features to the (0, 1) range.
 	\item Inverted normalization, where close to 1 = good, close to 0 = poor condition
 	\item Grouped ranged features depending on conditions, where 1 is the best condition.
-	\item Divide Race features depending on the race and convert variables to binary.
+	\item We grouped race into binary indicators..
 \end{itemize}
 \subsection{Dataset Splitting and Reasoning}
 \hspace*{1em}
-In the experiment, we created a DataFrame excluding the \textit{Heart Disease} column and randomly selected 15000 samples to increase computational efficiency. Then we used this data in the clustering process and anomaly detection.  The purpose of this setup was to detect internal patterns that characterize a divergent subgroup and compare the results with the clusters.
+In the experiment, we created a DataFrame excluding the \textit{Heart Disease} column and randomly selected 15000 samples to increase computational efficiency. Then we used this data in the clustering process and anomaly detection.  This setup aimed to detect internal patterns that characterize a divergent subgroup and compare the results with the clusters.
 
 These results gave us the basis for a combined analysis: in the next section, we divided the data set into those with and without cardiovascular disease. And we compared them. 
-\subsection{Clustering Algorithms and Dimensional Reducing}
+\subsection{Clustering Algorithms and Dimensionality Reduction}
 \hspace*{1em}
 After testing several clustering algorithms, we selected six of them for further analysis:  \textit{K-Means}, \textit{Hierarchical Clustering (Ward method}, \textit{DBSCAN}, \textit{Spectral Clustering}, \textit{Gaussian Mixture Models (GMM)}, and \textit{Leiden}.
 
@@ -82,7 +83,7 @@ For UMAP, we use \textit{Trustworthiness} metric (\texttt{Figure 2}). We tested 
 
 We also use several statistical tests to estimate the quality of the clustering algorithms, We want to detect the optimal algorithm for our dataset. We choose:   \textit{Silhouette Score}, which shows how well the data points fit in its cluster,  \textit{Calinski-Harabasz Score}, which measures the ratio between-cluster dispersion, and \textit{Davies-Bouldin Score}, which measures average distance between clusters. After that, we choose optimal algorithms for local and global clustering (\texttt{Figure 3}). 
 
-Likewise, we used statistical tests to confirm our hypothesis that we built as a result of clusters and Analysis Detection assessment, \textit{Shapiro-Wilk test} for checking if we have \texttt{Normal Distribution} (mostly not, because we limited the number of numerical features by grouping them in the process data normalization), \textit{Mann-Whitney two-sided test} for checking if the clusters' features have significant differences or \textit{t-test} if data have normal distribution, and \textit{Shapiro-Wilk test} for checking correlation and confirm or reject hypothesis.
+Likewise, we used statistical tests to confirm our hypothesis that we built as a result of clusters and Analysis Detection assessment, \textit{Shapiro-Wilk test} for checking if we have \texttt{Normal Distribution} (mostly not, because we limited the number of numerical features by grouping them in the process data normalization), \textit{Mann-Whitney two-sided test} for checking if the clusters' features have significant differences or \textit{t-test} if data have normal distribution, and \textit{Spearman's rank correlation test} for checking correlation and confirm or reject hypothesis.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth]{BestClastersScore.png}
@@ -91,7 +92,7 @@ Likewise, we used statistical tests to confirm our hypothesis that we built as a
 \end{figure}
 \subsection{Anomaly detection methods}
 \hspace*{1em}
-We applied four different algorithms: \textit{Isolation Forest},  \textit{Local Outlier Factor (LOF)}, \textit{One-Class SVM (Support Vector Machine)}, and \textit{Elliptic Envelope}, \texttt{Figure 3}. We used to detect the most common anomalies that we chose among them. For discovering the most significant anomaly fitters and their mean deviation. 
+We applied four different algorithms: \textit{Isolation Forest},  \textit{Local Outlier Factor (LOF)}, \textit{One-Class SVM (Support Vector Machine)}, and \textit{Elliptic Envelope}. We use to detect the most common anomalies that we chose among them. For discovering the most significant anomaly fitters and their mean deviation. 
 
 \section{Experiment}
 \subsection{Identified clusters}
@@ -108,11 +109,11 @@ We applied four different algorithms: \textit{Isolation Forest},  \textit{Local 
     \centering
     \includegraphics[width=\linewidth]{DBSKAN_UMAP.png}
     \caption{DBSCAN clustering visualization in 3D space after UMAP dimensionality reduction.}
-    \label{fig:DBSKAN_UMAP_plot}
+    \label{fig:DBSCAN_UMAP_plot}
   \end{minipage}
 \end{figure}
 \hspace*{1em}
-After clustering, we selected the best cluster algorithms that provide local structure: \textit{K-Mean+UMAP} with six clusters (\texttt{Figure 4}), and global structure: \textit{DBSKAN+UMAP}, (\texttt{Figure 5}). DBSKAN produces too many clusters, so we applied hierarchical clustering with the Ward method and selected the optimal number to create eleven meta-clusters for DBSKAN. We got very comparable statistical metrics to the original DBSKAN results:
+After clustering, we selected the best cluster algorithms by results from (\texttt{Figure 3}) that provide local structure: \textit{K-Mean+UMAP} with six clusters (\texttt{Figure 4}), and global structure: \textit{DBSCAN+UMAP}, (\texttt{Figure 5}). DBSCAN produces too many clusters, so we applied hierarchical clustering with the Ward method and selected the optimal number to create eleven meta-clusters for DBSCAN. We got very comparable statistical metrics to the original DBSCAN results:
 \begin{itemize}
     \item Silhouette Score: 0.39601	
     \item Calinski-Harabasz Score: 4455.637207	
@@ -133,7 +134,7 @@ After clustering, we selected the best cluster algorithms that provide local str
     \centering
     \includegraphics[width=\linewidth]{Cluster_DBSCAN_AllData.png}
     \caption{Features heatmap across DBSCAN clusters.}
-    \label{fig:DBSKAN_UMAP_plot}
+    \label{fig:DBSCAN_UMAP_plot}
   \end{minipage}
 \end{figure}
 \hspace*{1em}
@@ -142,11 +143,11 @@ We referred to the Heart Disease column as our marker for each cluster and found
 The clusters analysis of K-Means with UMAP (shown in \texttt{Figure 6}) are:
 \begin{itemize}
 
-\item \textit{Cluster 4} represents the highest percentage of heart disease,14\%, with poor health indicators and unhealthy lifestyles. Characterized by the highest alcohol drinking rate, an older population, mostly female.
-\item \textit{Cluster 1} represents high heart disease rate, unhealthy lifestyle, and poor health. Characterized by the highest smoking rate,66\%, a significantly younger population than Cluster 4, and predominantly male.
-\item \textit{Cluster 2} represents an average heart disease rate, with poor health indicators. Characterized by a diverse demographic profile, including the youngest population across all clusters.
-\item \textit{Cluster 0} represents the average heart disease rate and good overall health with minimal chronic conditions. Characterized by a high smoking rate, an older population.
-\item \textit{Clusters 3 and 5} have the lowest heart disease rate, and good overall health. Characterized by active lifestyles and a relatively younger population. However, Cluster 5 is predominantly female and has a higher smoking rate, while Cluster 3, which is mostly male, with a low smoking rate.
+\item \textbf{Cluster 4} represents the highest percentage of heart disease,14\%, with poor health indicators and unhealthy lifestyles. Characterized by the highest alcohol drinking rate, an older population, mostly female.
+\item \textbf{Cluster 1} represents high heart disease rate, unhealthy lifestyle, and poor health. Characterized by the highest smoking rate,66\%, a significantly younger population than Cluster 4, and predominantly male.
+\item \textbf{Cluster 2} represents an average heart disease rate, with poor health indicators. Characterized by a diverse demographic profile, including the youngest population across all clusters.
+\item \textbf{Cluster 0} represents the average heart disease rate and good overall health with minimal chronic conditions. Characterized by a high smoking rate, an older population.
+\item \textbf{Clusters 3 and 5} have the lowest heart disease rate, and good overall health. Characterized by active lifestyles and a relatively younger population. However, Cluster 5 is predominantly female and has a higher smoking rate, while Cluster 3, which is mostly male, with a low smoking rate.
 
 
 \end{itemize}
@@ -157,17 +158,17 @@ As well, Clusters 3 and 5 can be informative, but not in context regarding Heart
 
 These clusters have to be a global structure, because we also choose DBSCAN with UMAP (shown in \texttt{Figure 7}) that provides better local structure :
 \begin{itemize}
- \item \textit{Clusters 4} represents the highest percentage of heart disease, 12\%, the lowest general health rate, unhealthy lifestyles, the worst mental health scores, and is predominantly female. This makes this group similar to Cluster 4 from K-Means. Likewise, all Black population in the group, 15\% and this is a significant difference between these groups.
-\item \textit{Clusters 6} represents Asian from the data, 55\%, and the White population, they have a low heart disease rate, good health condition, and mostly healthy habits, they don't drink alcohol, and relatively for DBSCAN clusters low number of smokers.
-\item \textit{Clusters 8} represents an increased percentage of heart disease and the highest average age. Characterized by active lifestyles with no unhealthy habits and an older population, 71.15. Highest average sleep time, except for heart disease, good overall health, and a predominantly female population. 
-\item \textit{Clusters 1} represents the youngest population. Most features have perfect numbers except the smoking rate and mental health score. 
-\item \textit{Cluster 0}  represents the increased percentage of heart disease rate and good overall health with minimal chronic conditions, but the highest number of smokers, 79\%, and a mixed older middle age population.
-\item \textit{Cluster 7} represents the low heart disease rate and good overall health with minimal chronic conditions. Predominantly female with an older population and high BMI.
-\item \textit{Cluster 9} represents the low heart disease rate and good overall health with minimal chronic conditions, similar to cluster 7. But predominantly male with a middle-aged population, with a high average sleep.
-\item \textit{Clusters 2} represents mostly  Hispanic, 92\%, population with the average heart disease rate, the second-lowest general health, 0.63\%, with poor health indicators and unhealthy lifestyles. But one of the lowest average ages.
-\item \textit{Cluster 3} represents the average heart disease rate, good overall health, and active lifestyles. Predominantly female with a late middle-aged population.
-\item \textit{Cluster 5} represents the increased percentage of heart disease rate, good overall health, and active lifestyles. Only the male population has with high number of smokers.
-\item \textit{Clusters 10}  represents an increased percentage of heart disease, with poor health indicators and unhealthy lifestyles. Lowest average sleep, 6,72, and second lowest mental health, 4.65. However, high physical activity. Predominantly male population with a middle-aged population.
+ \item \textbf{Clusters 4} represents the highest percentage of heart disease, 12\%, the lowest general health rate, unhealthy lifestyles, the worst mental health scores, and is predominantly female. This makes this group similar to Cluster 4 from K-Means. Likewise, all Black population in the group, 15\% and this is a significant difference between these groups.
+\item \textbf{Clusters 6} represents Asian from the data, 55\%, and the White population, they have a low heart disease rate, good health condition, and mostly healthy habits, they don't drink alcohol, and relatively for DBSCAN clusters low number of smokers.
+\item \textbf{Clusters 8} represents an increased percentage of heart disease and the highest average age. Characterized by active lifestyles with no unhealthy habits and an older population, 71.15. Highest average sleep time, except for heart disease, good overall health, and a predominantly female population. 
+\item \textbf{Clusters 1} represents the youngest population. Most features have perfect numbers except the smoking rate and mental health score. 
+\item \textbf{Cluster 0}  represents the increased percentage of heart disease rate and good overall health with minimal chronic conditions, but the highest number of smokers, 79\%, and a mixed older middle age population.
+\item \textbf{Cluster 7} represents the low heart disease rate and good overall health with minimal chronic conditions. Predominantly female with an older population and high BMI.
+\item \textbf{Cluster 9} represents the low heart disease rate and good overall health with minimal chronic conditions, similar to cluster 7. But predominantly male with a middle-aged population, with a high average sleep.
+\item \textbf{Clusters 2} represents mostly  Hispanic, 92\%, population with the average heart disease rate, the second-lowest general health, 0.63\%, with poor health indicators and unhealthy lifestyles. But one of the lowest average ages.
+\item \textbf{Cluster 3} represents the average heart disease rate, good overall health, and active lifestyles. Predominantly female with a late middle-aged population.
+\item \textbf{Cluster 5} represents the increased percentage of heart disease rate, good overall health, and active lifestyles. Only the male population has with high number of smokers.
+\item \textbf{Clusters 10}  represents an increased percentage of heart disease, with poor health indicators and unhealthy lifestyles. Lowest average sleep, 6,72, and second lowest mental health, 4.65. However, high physical activity. Predominantly male population with a middle-aged population.
 \end{itemize}
  
 DBSCAN gives us more local structure. We can find clusters that have slightly different characteristics that can help us find interesting results. For example, clusters 10 and 2 have generally close characteristics and bad habits, except physical activities, diabet, heart disease, race, and sleep time. Or vice versa, very different but with similar main features, for ethemle clusters 0 and 4, which both have high smoking, mostly women of the same age. But with a different health condition. 
@@ -191,14 +192,14 @@ DBSCAN gives us more local structure. We can find clusters that have slightly di
 \end{figure}
 To improve interpretability and emphasize subgroup distinctions, the full dataset was partitioned into two cohorts: participants without a cardiovascular disease diagnosis (“healthy”) and those with a confirmed diagnosis (“sick”). For each cohort, clustering was conducted independently: data were first transformed via PCA and subsequently subjected to K-Means clustering, selected on the basis of prior quality metrics. 
 
-\paragraph{Clusters among healthy participants:}
+\paragraph{Clusters among healthy participants  (shown in \texttt{Figure 9}):}
 \begin{itemize}
   \item \textbf{Healthy 0}: Racially diverse (African American, Latino, Asian), characterized by high physical activity and average general and mental health scores.
   \item \textbf{Healthy 1}: Exclusively female, exhibiting the highest physical activity levels and best self-reported general health.
   \item \textbf{Healthy 2}: Exclusively male, also active but presenting slightly lower mental health scores compared to Healthy 1.
 \end{itemize}
 
-\paragraph{Clusters among sick participants:}
+\paragraph{Clusters among sick participants  (shown in \texttt{Figure 8}):}
 \begin{itemize}
   \item \textbf{Sick 0}: Exhibits the most severe health profile, with highest prevalence of stroke, diabetes, kidney disease, and lowest general and subjective health scores.
   \item \textbf{Sick 1}: Predominantly female group, with lower disease prevalence and high physical activity levels.
@@ -209,8 +210,8 @@ Pronounced gender differences are evident: Healthy 1 comprises only women, Healt
 
 Comparative analysis of mean feature values indicates:
 \begin{itemize}
-  \item \emph{Sick cohort}: Higher rates of smoking, stroke, diabetes, walking difficulties, kidney disease and skin cancer; lower subjective, physical and mental health scores; reduced BMI and sleep duration.
-  \item \emph{Healthy cohort}: Slightly elevated alcohol consumption alongside superior outcomes across all other health indicators.
+  \item \textbf{Sick cohort}: Higher rates of smoking, stroke, diabetes, walking difficulties, kidney disease and skin cancer; lower subjective, physical and mental health scores; reduced BMI and sleep duration.
+  \item \textbf{Healthy cohort}: Slightly elevated alcohol consumption alongside superior outcomes across all other health indicators.
 \end{itemize}
 
 Euclidean distances between cluster centroids in PCA space quantify subgroup divergence:
@@ -236,13 +237,45 @@ After combining all samples into one dataset (without splitting by health status
 
 \paragraph{Cluster health assessment:}
 \begin{itemize}
-  \item \emph{Healthy clusters}: 2 and 0—active, non-smoking, good overall health.
-  \item \emph{Borderline clusters}: 1, 4, 5—moderate risk shaped by demographics and behaviors.
-  \item \emph{Sick cluster}: 3—mirrors Sick 0 and represents the most severe health profile.
+  \item \textbf{Healthy clusters}: 2 and 0—active, non-smoking, good overall health.
+  \item \textbf{Borderline clusters}: 1, 4, 5—moderate risk shaped by demographics and behaviors.
+  \item \textbf{Sick cluster}: 3—mirrors Sick 0 and represents the most severe health profile.
 \end{itemize}
 
-\subsubsection{Summary of Risk Profiles and Health Typologies}
+\subsection{Hypothesis Testing}
+\hspace*{1em}
+We observe that the highest level of heart disease in cluster number 0, between clusters 3 and 5, can be described by the highest average age or the largest number of smokers. We decided to compare clusters 0 and 3, with more similar proportions in all categories except these two. To confirm this hypothesis, first we should check if we have significant differences in Heart Disease feature between classes. We chose \textit{Mann-Whitney two-sided test} (U-statistics = 568672.5000, p-value = 1.4428e-03)  because the distribution of the Heart Disease column is not normal, because the values of Heart Disease have a binar structure (normality was rejected \textit{Shapiro-Wilk test}, p < 0.05). Second, we examined correlation \textit{Spearman's rank correlation test} and we found significant associations between Average Age vs Heart Disease: correlation = 0.2452, p-value = 2.5706e-204 and Smoking vs Heart Disease: correlation = 0.1074, p-value = 1.0201e-39. The results statistically confirm our hypothesis that higher age and smoking status contribute to the elevated heart disease risk in cluster 0. 
 
+\subsection{Anomaly detection}
+\hspace*{1em}
+\begin{figure}[htbp]
+  \centering
+	\begin{minipage}{0.48\textwidth}
+	  \centering
+	  \includegraphics[width=\linewidth]{Comparation_of_anomaly_methods.png}
+    \caption{Plot showing comparison of anomaly methods.}
+    \label{fig:scree_BestAnomaly}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+	  \includegraphics[width=\linewidth]{Anomaly_with_Pvalue.png}
+    \caption{Plot showing deviation in anomalies with Mann–Whitney U test.}
+    \label{fig:scree_PvalueAnomaly}
+  \end{minipage}
+\end{figure}
+
+After using 4 different algorithms, we found 1\% of the total sample. For each one, we also check the F1-score and accuracy (shown in \texttt{Figure 10}); all methods poorly separate anomalies. That all shows that the data is very unbalanced, but that's normal for medical-type data. Because of that, we select only anomalies that were detected by at least 2 algorithms. And we find several rare but statistically significant patterns in the data, as confirmed by Mann-Whitney U tests.
+
+The most common anomalies are Stroke, Kidney Disease,  Diabetes, and others. That show is an anomaly, mostly coming with serious concomitant diseases. Also, we detect that American Indian/Alaska Native is +696.5\% deviation, which can be described by, for example by inequality in Health Care, genetic, cultural, demographic, or low representation in the dataset. 
+
+In contrast, negative characteristics show us that anomalies are less likely to have these characteristics, for example, we detect a lack of physical activity, a lack of sleep duration, poor mental health, and high BMI (because a score of 1.0 represents the best health condition after normalization), and others. 
+From \texttt{Figure 11} 
+
+\section{Conclusions and Recommendations}
+
+\subsection*{Summary of Risk Profiles and Health Typologies}
+\hspace*{1em}
 After we reviewed all clusters, we identified the following key correlates of cardiovascular disease:
 \begin{itemize}
   \item Stroke frequency is closely tied to the presence of other chronic conditions.
@@ -260,7 +293,7 @@ We define three health typologies based on these patterns:
   \item \textbf{Sick}: Smokers with diabetes, reduced sleep duration, and impaired physical function; predominantly older white men.
 \end{itemize}
 
-From these results we draw several strategic insights:
+From these results, we draw several strategic insights:
 \begin{itemize}
   \item Smoking, diabetes, and inactivity are key markers of poor health outcomes.
   \item A GenHealth score below 0.6 reliably indicates pathology.
@@ -269,36 +302,28 @@ From these results we draw several strategic insights:
   \item Young, active minority groups may be underdiagnosed and require closer monitoring.
 \end{itemize}
 
-\subsection{Anomaly describing} 
+\subsection*{Discussion}
 \hspace*{1em}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{Comparation_of_anomaly_methods.png}
-    \caption{Plot showing comparison of anomaly methods.}
-    \label{fig:scree_BestAnomaly}
-\end{figure}
-After using 4 different algorithms, we found 1\% of the total sample. For each one, we also check the F1-score and accuracy (shown in \texttt{Figure 8}); all methods poorly separate anomalies. That all shows that the data is very unbalanced, but that's normal for medical-type data. Because of that, we select only anomalies that were detected by at least 2 algorithms. And we find several rare but statistically significant patterns in the data, as confirmed by Mann-Whitney U tests.
+We used a cluster algorithm to group the population by features, the optimal cluster algorithm was chosen by statistical methods that we describe in the Methods section, randomly reducing the sample size because of computing power limitations. In addition, the dataset was split into populations with and without heart disease, the results were compared. That shows that characteristics have a more significant impact. After that, the thermal maps were created from clustering results, which showed features distribution into the clusters and helped describe the results. Similar clusters, with few differences, were compared. That helps to detect how minor discrepancies can affect cardiovascular disease status. Such as age or smoking\citep{Khan2025}, which we confirmed statistically, or conditions like diabetes or kidney disease that have a connection with cardiovascular disease. All these factors are consistent with academic research\citep{CardioCkidney}. The DBSCAN method also shows specific racial distribution between clusters, but because we do not have income information, we can't be sure about any genetic impact. 
 
-The most common anomalies are Stroke, Kidney Disease,  Diabetes, and others. That show is an anomaly, mostly coming with serious concomitant diseases. Also, we detect that American Indian/Alaska Native is +696.5\% deviation, which can be described by, for example by inequality in Health Care, genetic, cultural, demographic, or low representation in the dataset. 
+\subsection*{Recommendations}
+\hspace*{1em}
+We suggest checking the correlation between sleep duration or diabet, and heart disease with clusters using DBSCAN clusters 2 and 10, try exploring the effect of Physical Activities on women's health using clusters 0 and 4, or find interconnections between other clusters, which can help us to build and confirm other hypotheses. Or, remove all rows that include other diseases that are not heart disease,  next check lifestyle characteristics, and find which have the most impact or are more common with heart disease. As well, we could do it with all diseases in a list. That can help to understand the overall picture of the relationship between diseases and specific relationships between symptoms.
 
-In contrast, negative characteristics show us that anomalies are less likely to have these characteristics, for example, we detect a lack of physical activity, a lack of sleep duration, poor mental health, and high BMI (because a score of 1.0 represents the best health condition after normalization), and others. 
-From \texttt{Figure 9} 
-\hspace*{1em}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{Anomaly_with_Pvalue.png}
-    \caption{Plot showing deviation in anomalies with Mann–Whitney U test.}
-    \label{fig:scree_PvalueAnomaly}
-\end{figure}
+\bibliographystyle{Bibliographic list}
 
-\subsection{Hypothesis Testing}
-\hspace*{1em}
-We observe that the highest level of heart disease in cluster number 0, between clusters 3 and 5, can be described by the highest average age or the largest number of smokers. We decided to compare clusters 0 and 3, with more similar proportions in all categories except these two. To confirm this hypothesis, first we should check if we have significant differences in Heart Disease feature between classes. We chose \textit{Mann-Whitney two-sided test} (U-statistics = 568672.5000, p-value = 1.4428e-03)  because the distribution of the Heart Disease column is not normal, because the values of Heart Disease have a binar structure (we also proved it with \textit{Shapiro-Wilk test}  for normality). Second, we examined correlation \textit{Spearman's rank correlation test} and we found significant associations between Average Age vs Heart Disease: correlation = 0.2452, p-value = 2.5706e-204 and Smoking vs Heart Disease: correlation = 0.1074, p-value = 1.0201e-39. The results statistically confirm our hypothesis that higher age and smoking status contribute to the elevated heart disease prevalence in cluster 0. It would be possible to check the correlation between sleep duration or diabet, and heart disease with clusters using DBSCAN clusters 2 and 10. Or try exploring the effect of Physical Activities on women's health using clusters 0 and 4. 
-\subsection{Conclucsion}
-\hspace*{1em}
-In the same way as in our experiment, we can find interconnections between clusters, which can help us to build and confirm hypotheses. To understand the overall picture of the relationship between diseases, enough to find a good global structure (in our case, we used K-Means). But if you need to find specific relationships between symptoms, you need to find a balance between locality and readability. In our case, it is DBSCAN with hierarchical ward.
-\section{Discussion}
-\hspace*{1em}
-We are using several methods of unsupervised learning and statistics for analyzing data. We used a cluster algorithm to group the population by features, visualize, and describe the results, and find several interesting correlations between features. In addition, we split this data into populations with heart disease and compared the results. That shows that characteristics have a more significant impact. Likewise will be interesting, remove all rows that include other diseases that are not to heart disease, and check lifestyle characteristics, and find which have more impact or more common cumming with heart disease. As well, we could do it with all diseases in a list. 
+\begin{thebibliography}{1}
+  \bibitem{Kaggle2020}
+  2020 annual CDC survey data of 300k+ adults related to their health status\\
+  \href{https://www.kaggle.com/datasets/kamilpytlak/personal-key-indicators-of-heart-disease}{\emph{Indicators of Heart Disease}}. 
+
+  \bibitem{Khan2025}
+  Khan S., Ning H., Sinha A., Wilkins J., Allen N., Vu T., Berry J., Lloyd‐Jones M., Sweis R.\\
+  \href{https://www.ahajournals.org/doi/10.1161/JAHA.121.021751}{\emph{Cigarette Smoking and Competing Risks for Fatal and Nonfatal Cardiovascular Disease Subtypes Across the Life Course}}. 
+
+  \bibitem{CardioCkidney}
+  Jankowski J., Floege J., Fliser D., Böhm M., Marx N.\\
+  \href{https://www.ahajournals.org/doi/10.1161/CIRCULATIONAHA.120.050686}{\emph{Cardiovascular Disease in Chronic Kidney Disease: Pathophysiological Insights and Therapeutic Options}}. 
+\end{thebibliography}
 
 \end{document}
