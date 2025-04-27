@@ -11,7 +11,7 @@
 \title{Unsupervised Learning - Final Project\\
 {\large Heart Disease Risk Factors Detection using Unsupervised Learning Methods}}
 
-\author{\small Nikita Nedostoup (ID: 336495593), Vladimir Kantorichy (ID: 345027767)}
+\author{\small Nikita Nedostoup (ID: 336495593), Vladimir Kantorovich (ID: 345027767)}
 \date{April 2025}
 
 \begin{document}
@@ -51,7 +51,7 @@
 In the experiment, we created a DataFrame excluding the \textit{Heart Disease} column and randomly selected 15000 samples to increase computational efficiency. Then we used this data in the clustering process and anomaly detection.  This setup aimed to detect internal patterns that characterize a divergent subgroup and compare the results with the clusters.
 
 These results gave us the basis for a combined analysis: in the next section, we divided the data set into those with and without cardiovascular disease. And we compared them. 
-\subsection{Clustering Algorithms and Dimensionality Reduction}
+\subsection{Clustering Algorithms and Dimensionality Reduction\citep{MLinPython}}
 \hspace*{1em}
 After testing several clustering algorithms, we selected six of them for further analysis:  \textit{K-Means}, \textit{Hierarchical Clustering (Ward method}, \textit{DBSCAN}, \textit{Spectral Clustering}, \textit{Gaussian Mixture Models (GMM)}, and \textit{Leiden}.
 
@@ -316,6 +316,10 @@ We suggest checking the correlation between sleep duration or diabet, and heart 
   \bibitem{Kaggle2020}
   2020 annual CDC survey data of 300k+ adults related to their health status\\
   \href{https://www.kaggle.com/datasets/kamilpytlak/personal-key-indicators-of-heart-disease}{\emph{Indicators of Heart Disease}}. 
+
+  \bibitem{MLinPython}
+  ML Documentation, 2024.\\
+  \href{https://scikit-learn.org/1.5/index.html}{\emph{scikit-learn: Machine Learning in Python” (v1.5.2)}}. 
 
   \bibitem{Khan2025}
   Khan S., Ning H., Sinha A., Wilkins J., Allen N., Vu T., Berry J., Lloyd‐Jones M., Sweis R.\\
